@@ -1,0 +1,35 @@
+佈署上github的方法
+1. 
+> npm i gh-pages 或是 > npm install gh-pages
+
+2. 
+在 package.json 的 script 加入新的指令
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
+  },
+
+3. 
+在 vite.config.js 修改各種目錄的連結方法
+export default defineConfig({
+  // 開發中 or 上線版本
+  base: process.env.NODE_ENV === "production" ? "/{your-repo-name}/" : "/",
+  plugins: [react()],
+})
+
+4. 
+編譯vite程式包：
+> npm run build
+
+5. 上傳到gh-pages分支：
+> npm run deploy
+
+6. 更新main的原始碼
+> git status
+> git add .
+> git status
+> git commit -m "註解"
+> git push
