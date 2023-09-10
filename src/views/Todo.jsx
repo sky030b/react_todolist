@@ -60,7 +60,7 @@ function Todo() {
     try {
       checkout()
       const res = await axios.get(`${VITE_APP_HOST}/todos/`)
-      console.dir(res)
+      // console.dir(res)
       setTodos(res.data.data)
       showNow(res.data.data)
     } catch (error) {
@@ -248,21 +248,24 @@ function Todo() {
               {todos.length === 0 ?
                 <div className="nothing">目前尚無待辦事項</div> :
                 <ul className="todoList_item">
-                  {showTodos.map((todo) => {
-                    return (
-                      <li key={todo.id}>
-                        <label className="todoList_label">
-                          <input className="todoList_input" type="checkbox"
-                            value="true" checked={todo.status}
-                            onChange={() => { changeTodoStatus(todo.id) }} />
-                          <span>{todo.content}</span>
-                        </label>
-                        <a onClick={() => { deleteTodo(todo.id) }}>
-                          <i className="fa fa-times"></i>
-                        </a>
-                      </li>
-                    )
-                  })}
+                  {showTodos.length === 0 ?
+                    <div className="nothing">目前尚無此分類之待辦事項</div> :
+                    showTodos.map((todo) => {
+                      return (
+                        <li key={todo.id}>
+                          <label className="todoList_label">
+                            <input className="todoList_input" type="checkbox"
+                              value="true" checked={todo.status}
+                              onChange={() => { changeTodoStatus(todo.id) }} />
+                            <span>{todo.content}</span>
+                          </label>
+                          <a onClick={() => { deleteTodo(todo.id) }}>
+                            <i className="fa fa-times"></i>
+                          </a>
+                        </li>
+                      )
+                    })
+                  }
                 </ul>
               }
               <div className="todoList_statistics">
