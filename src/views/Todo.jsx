@@ -9,6 +9,7 @@ const { VITE_APP_HOST } = import.meta.env;
 function Todo() {
 
   const navigate = useNavigate()
+  const [btnLoading, setBtnLoading] = useState(false)
 
   // get token
   const token = Cookies.get('token')
@@ -29,7 +30,7 @@ function Todo() {
         // console.dir(error)
         alert("token驗證錯誤。\n將於1秒後回到登入頁面")
         setTimeout(() => {
-          navigate("/login")
+          navigate("/")
         }, "1000");
       }
     })()
@@ -45,7 +46,7 @@ function Todo() {
       // console.dir(error)
       alert("token驗證錯誤。\n將於1秒後回到登入頁面")
       setTimeout(() => {
-        navigate("/login")
+        navigate("/")
       }, "1000");
     }
   }
@@ -106,6 +107,7 @@ function Todo() {
     if (!newTodo.trim()) {
       return setNewTodo("");
     }
+    setBtnLoading(true)
     try {
       const res = await axios.post(`${VITE_APP_HOST}/todos`, { content: newTodo })
       setTab([
@@ -129,6 +131,7 @@ function Todo() {
     } catch (error) {
       alert(error.response.data.message);
     }
+    setBtnLoading(false)
   };
 
   // change todo status
@@ -169,13 +172,12 @@ function Todo() {
         <img className="logo" src={logo} alt="logo" />
         <ul>
           <li className="todo_sm"><a><span>{nickname}的待辦清單</span></a></li>
-          <li><a className="logout_btn" onClick={() => {
+          <li><a type="button" className="logout_btn" onClick={() => {
             const result = confirm("是否登出線上待辦系統？");
             if (result) {
-              navigate("/login")
               Cookies.remove('token')
               console.log("token已移除")
-              navigate("/login")
+              navigate("/")
             }
           }}>登出</a></li>
         </ul>
@@ -185,8 +187,12 @@ function Todo() {
           <div className="inputBox">
             <input type="text" placeholder="請輸入待辦事項" value={newTodo}
               onChange={(e) => { setNewTodo(e.target.value) }}
-              onKeyDown={(e) => { e.key === 'Enter' ? addNewTodo() : null }} />
-            <a onClick={addNewTodo}>
+              onKeyDown={(e) => {
+                e.key === 'Enter' ?
+                  (!btnLoading ? addNewTodo() : null)
+                  : null
+              }} />
+            <a type="button" onClick={!btnLoading ? addNewTodo : null}>
               <i className="fa fa-plus"></i>
             </a>
           </div>
