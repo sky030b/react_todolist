@@ -28,10 +28,11 @@ function Todo() {
         setNickname(res.data.nickname)
       } catch (error) {
         // console.dir(error)
-        alert("token驗證錯誤。\n將於1秒後回到登入頁面")
-        setTimeout(() => {
-          navigate("/")
-        }, "1000");
+
+        // alert("token驗證錯誤。\n將於1秒後回到登入頁面。")
+        // setTimeout(() => {
+        //   navigate("/")
+        // }, "1000");
       }
     })()
   }, [])
@@ -44,13 +45,13 @@ function Todo() {
       console.log("認證成功")
     } catch (error) {
       // console.dir(error)
-      alert("token驗證錯誤。\n將於1秒後回到登入頁面")
+      alert("token驗證錯誤。\n將於1秒後回到登入頁面。")
       setTimeout(() => {
         navigate("/")
       }, "1000");
     }
   }
-  useEffect(() => { checkout() }, [])
+  // useEffect(() => { checkout() }, [])
 
   // get user's todos
   const [todos, setTodos] = useState([])
@@ -66,7 +67,7 @@ function Todo() {
       console.log(error.response.data.message)
     }
   }
-  useEffect(() => { getTodos() }, [])
+  // useEffect(() => { getTodos() }, [])
 
   // change the status tab
   const [tab, setTab] = useState([
@@ -129,7 +130,7 @@ function Todo() {
       ])
       setNewTodo("");
     } catch (error) {
-      alert(error.response.data.message);
+      checkout()
     }
     setBtnLoading(false)
   };
@@ -138,9 +139,10 @@ function Todo() {
   const changeTodoStatus = async (id) => {
     try {
       const res = await axios.patch(`${VITE_APP_HOST}/todos/${id}/toggle`, {});
+      // checkout()
       getTodos();
     } catch (error) {
-      alert(error.response.data.message);
+      checkout()
     }
   }
 
@@ -148,10 +150,12 @@ function Todo() {
   const deleteTodo = async (id) => {
     try {
       const res = await axios.delete(`${VITE_APP_HOST}/todos/${id}`);
+      // checkout()
       getTodos();
     } catch (error) {
       console.dir(error)
       alert("刪除失敗...")
+      checkout()
     }
   }
 
@@ -224,8 +228,18 @@ function Todo() {
                           return newItem
                         })
                         setTab(newTab)
-                        showNow(todos)
                       }}>{item.title}</a>}
+                    {/* <a className={(item.selected ? "active" : "inactive")}
+                      onClick={() => {
+                        const newTab = tab.map((newItem) => {
+                          newItem.status = false
+                          if (item.id === newItem.id) {
+                            newItem.status = true
+                          }
+                          return newItem
+                        })
+                        setTab(newTab)
+                      }}>{item.title}</a> */}
                   </li>
                 )
               })}
