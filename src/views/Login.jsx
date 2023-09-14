@@ -1,13 +1,11 @@
-import picture from "../pictures/picture.png"
-import logo from "../pictures/logo.png"
 import { useState } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import Cookies from "js-cookie"
 
 const { VITE_APP_HOST } = import.meta.env;
 
-function Login() {
+function Login({ picHidden, setPicHidden }) {
 
   const [form, setForm] = useState({
     email: "",
@@ -15,6 +13,7 @@ function Login() {
   })
 
   const [isLoading, setIsLoading] = useState(false)
+  const [changed, setChanged] = useState(false)
   const navigate = useNavigate()
 
   const signIn = () => {
@@ -41,25 +40,24 @@ function Login() {
   }
 
   return (
-    // <div id="loginPage" className="bg-yellow">
-    //   <div className="conatiner loginPage vhContainer ">
-    //     <div className="side">
-    //       <img className="logoImg" src={logo} alt="logo" />
-    //       <img className="d-m-n" src={picture} alt="workImg" />
-    //     </div>
     <div>
       <form className="formControls" action="index.html">
         <h2 className="formControls_txt">最實用的線上待辦事項服務</h2>
         <label className="formControls_label" htmlFor="email">Email</label>
         <input className="formControls_input" type="text"
           id="email" name="email" placeholder="請輸入 email"
-          onChange={(e) => { setForm({ ...form, email: e.target.value }) }}
+          onChange={(e) => {
+            setForm({ ...form, email: e.target.value })
+            setChanged(true)
+          }}
           onKeyDown={(e) => { e.key === 'Enter' ? signIn() : null }}
           required />
-        {!form.email ?
-          <span>此欄位不可留空</span> :
-          (!isValidEmail(form.email) ?
-            <span>Email格式錯誤</span> : null)
+        {changed ?
+          (form.email ?
+            (!isValidEmail(form.email ?
+              <span>Email格式錯誤</span> : null))
+            : <span>此欄位不可留空</span>
+          ) : null
         }
         <label className="formControls_label" htmlFor="pwd">密碼</label>
         <input className="formControls_input" type="password"
@@ -72,11 +70,13 @@ function Login() {
           type="button" value="登入"
           onClick={signIn} disabled={isLoading}
         />
-        <a type="button" onClick={() => { navigate("/signUpPage") }} className="formControls_btnLink" >註冊帳號</a>
+        <a className="formControls_btnLink" type="button"
+          onClick={() => {
+            setPicHidden(true)
+            navigate("/signUpPage")
+          }} >註冊帳號</a>
       </form>
-    </div>
-    //   </div>
-    // </div>
+    </div >
   )
 }
 

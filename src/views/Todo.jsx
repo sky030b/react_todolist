@@ -10,6 +10,7 @@ function Todo() {
 
   const navigate = useNavigate()
   const [btnLoading, setBtnLoading] = useState(false)
+  const [statusChanging, setStatusChanging] = useState(false)
 
   // get token
   const token = Cookies.get('token')
@@ -137,6 +138,7 @@ function Todo() {
 
   // change todo status
   const changeTodoStatus = async (id) => {
+    setStatusChanging(true)
     try {
       const res = await axios.patch(`${VITE_APP_HOST}/todos/${id}/toggle`, {});
       // checkout()
@@ -144,6 +146,7 @@ function Todo() {
     } catch (error) {
       checkout()
     }
+    setStatusChanging(false)
   }
 
   // delete one todo
@@ -191,11 +194,12 @@ function Todo() {
           <div className="inputBox">
             <input type="text" placeholder="請輸入待辦事項" value={newTodo}
               onChange={(e) => { setNewTodo(e.target.value) }}
-              onKeyDown={(e) => {
-                e.key === 'Enter' ?
-                  (!btnLoading ? addNewTodo() : null)
-                  : null
-              }} />
+            // onKeyDown={(e) => {
+            //   e.key === 'Enter' ?
+            //     (!btnLoading ? addNewTodo() : null)
+            //     : null
+            // }}
+            />
             <a type="button" onClick={!btnLoading ? addNewTodo : null}>
               <i className="fa fa-plus"></i>
             </a>
@@ -205,41 +209,17 @@ function Todo() {
               {tab.map((item) => {
                 return (
                   <li key={item.id}>
-                    {item.selected ?
-                      <a className="active" onClick={() => {
+                    <a className={(item.selected ? "active" : "inactive")}
+                      onClick={() => {
                         const newTab = tab.map((newItem) => {
-                          if (newItem.status !== false) {
-                            newItem.status = false
-                          }
-                          if (item.id === newItem.id) {
-                            newItem.status = true
-                          }
-                          return newItem
-                        })
-                        setTab(newTab)
-                      }}>{item.title}</a> :
-                      <a onClick={() => {
-                        const newTab = tab.map((newItem) => {
-                          if (newItem.title !== item.title) {
-                            newItem.selected = false
-                          } else {
+                          newItem.selected = false
+                          if (item.title === newItem.title) {
                             newItem.selected = true
                           }
                           return newItem
                         })
                         setTab(newTab)
-                      }}>{item.title}</a>}
-                    {/* <a className={(item.selected ? "active" : "inactive")}
-                      onClick={() => {
-                        const newTab = tab.map((newItem) => {
-                          newItem.status = false
-                          if (item.id === newItem.id) {
-                            newItem.status = true
-                          }
-                          return newItem
-                        })
-                        setTab(newTab)
-                      }}>{item.title}</a> */}
+                      }}>{item.title}</a>
                   </li>
                 )
               })}
@@ -256,7 +236,7 @@ function Todo() {
                           <label className="todoList_label">
                             <input className="todoList_input" type="checkbox"
                               value="true" checked={todo.status}
-                              onChange={() => { changeTodoStatus(todo.id) }} />
+                              onChange={() => { !statusChanging ? changeTodoStatus(todo.id) : null }} />
                             <span>{todo.content}</span>
                           </label>
                           <a onClick={() => { deleteTodo(todo.id) }}>

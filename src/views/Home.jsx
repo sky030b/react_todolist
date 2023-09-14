@@ -1,18 +1,19 @@
 import { Outlet } from "react-router-dom"
 import picture from "../pictures/picture.png"
 import logo from "../pictures/logo.png"
+import { useState } from "react"
 
-function Home() {
+function Home({ picHidden, setPicHidden }) {
   return (
     <div id="homePage" className="bg-yellow">
       <div className="conatiner homePage vhContainer">
-        <div className="side">
+        <div className={picHidden ? "side smaller" : "side"}>
           <img className="logoImg" src={logo} alt="logo" />
-          <img className="d-m-n" src={picture} alt="workImg" />
+          <img className={picHidden ? "d-m-n pic_hidden" : "d-m-n"} src={picture} alt="workImg" />
         </div>
-        {/* <div> */}
-        <Outlet />
-        {/* </div> */}
+        <div className={picHidden ? "interactive bigger" : "interactive"}>
+          <Outlet />
+        </div>
       </div>
     </div >
   )
