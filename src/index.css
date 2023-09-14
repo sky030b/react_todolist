@@ -76,10 +76,6 @@ img {
   vertical-align: middle;
 }
 
-.logoImg {
-  margin-bottom: 16px;
-}
-
 .logo {
   max-width: 20%;
 }
@@ -92,6 +88,7 @@ img {
 
   .logo {
     max-width: 100%;
+    margin-bottom: 16px;
   }
 }
 
@@ -212,16 +209,10 @@ nav ul {
   font-size: 1rem;
 }
 
-@media (max-width: 576px) {
-  nav ul li {
-    margin-top: 11px;
-  }
-}
-
 nav ul a {
   text-decoration: none;
   color: #333333;
-  margin-left: 5px;
+  /* margin-left: 5px; */
 }
 
 @media (max-width: 576px) {
@@ -255,6 +246,10 @@ nav ul a span {
 .todo_nav ul li:last-child {
   width: 20%;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {
@@ -273,10 +268,9 @@ nav ul a span {
 
   .logout_btn {
     border: 1px solid gray;
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: 8px;
+    padding: 8px;
     background-color: #ffffff;
-    vertical-align: text-top;
     cursor: pointer;
   }
 }
@@ -297,10 +291,6 @@ nav ul a span {
 }
 
 @media (max-width: 576px) {
-  .todo_sm {
-    width: 75%;
-  }
-
   .todo_sm a:active {
     color: #3c3c3c;
   }

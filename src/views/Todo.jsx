@@ -189,7 +189,7 @@ function Todo() {
           }}>登出</a></li>
         </ul>
       </nav>
-      <div className="conatiner todoListPage vhContainer">
+      <div className="conatiner todoListPage">
         <div className="todoList_Content">
           <div className="inputBox">
             <input type="text" placeholder="請輸入待辦事項" value={newTodo}

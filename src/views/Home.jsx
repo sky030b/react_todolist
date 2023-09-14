@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom"
 import picture from "../pictures/picture.png"
 import logo from "../pictures/logo.png"
-import { useState } from "react"
 
 function Home({ picHidden, setPicHidden }) {
   return (
