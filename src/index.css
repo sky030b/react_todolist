@@ -76,14 +76,27 @@ img {
   vertical-align: middle;
 }
 
+.bg-logo {
+  background-image: url(./assets/logo.0b3e7648.svg);
+  background-size: 100%;
+  line-height: 6;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+}
+
 .logo {
   max-width: 20%;
 }
 
 @media (max-width: 576px) {
-  .logoImg {
+  /* .logoImg {
     max-height: 100%;
-    /* width: auto; */
+  } */
+
+  .bg-logo {
+    line-height: 5;
   }
 
   .logo {

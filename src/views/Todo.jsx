@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import logo from "../pictures/logo.png"
+// import logo from "../pictures/logo.png"
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -176,7 +176,8 @@ function Todo() {
   return (
     <div id="todoListPage" className="bg-half">
       <nav className="todo_nav">
-        <img className="logo" src={logo} alt="logo" />
+        {/* <img cla  ssName="logo" src={logo} alt="logo" /> */}
+        <h1 className="bg-logo">Online Todo List</h1>
         <ul>
           <li className="todo_sm"><a><span>{nickname}的待辦清單</span></a></li>
           <li><a type="button" className="logout_btn" onClick={() => {
