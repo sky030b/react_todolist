@@ -177,7 +177,7 @@ function Todo() {
     <div id="todoListPage" className="bg-half">
       <nav className="todo_nav">
         {/* <img cla  ssName="logo" src={logo} alt="logo" /> */}
-        <h1 className="bg-logo">Online Todo List</h1>
+        <h1 className="bg-logo todo-logo">Online Todo List</h1>
         <ul>
           <li className="todo_sm"><a><span>{nickname}的待辦清單</span></a></li>
           <li><a type="button" className="logout_btn" onClick={() => {
