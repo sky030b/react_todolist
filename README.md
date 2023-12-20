@@ -1,9 +1,10 @@
-# React + Vite
+# Todolist by React
+## 概述
+本專案由 React + Vite 建構而成。
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-"# todolist2" 
+## 登入註冊
+訪問者欲嘗試使用功能時，歡迎訪問者註冊屬於自己的帳密。
+  
+**附註：**  
+- 雖然資料庫沒有以明碼儲存密碼，但註冊時仍不建議使用您平時使用的帳密
+- 將於每日的00:00重置資料，故跨日後您註冊的帳號消失屬於正常現象
